@@ -1,10 +1,9 @@
 import React, { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, Grid, Stats } from "@react-three/drei";
+import { OrbitControls, Grid, Stats } from "@react-three/drei";
 import { Model } from "./Model";
 import { HotspotMarkers } from "../Hotspots/HotspotMarkers";
 import { SceneInteractionHandler } from "./SceneInteractionHandler";
-// import * as THREE from "three";
 
 interface SceneProps {
   showStats?: boolean;
@@ -26,8 +25,19 @@ export const Scene: React.FC<SceneProps> = ({
           antialias: true,
           alpha: true,
           powerPreference: "high-performance",
+          preserveDrawingBuffer: true,
         }}
         dpr={[1, 2]}
+        onCreated={({ gl }) => {
+          gl.domElement.addEventListener("webglcontextlost", (event) => {
+            event.preventDefault();
+            console.warn("WebGL context lost. Attempting to recover...");
+          });
+
+          gl.domElement.addEventListener("webglcontextrestored", () => {
+            console.log("WebGL context restored");
+          });
+        }}
       >
         {showStats && <Stats />}
 
@@ -44,11 +54,10 @@ export const Scene: React.FC<SceneProps> = ({
           maxPolarAngle={Math.PI / 1.8}
         />
 
-        {/* Lighting */}
-        <ambientLight intensity={0.4} />
+        <ambientLight intensity={0.6} />
         <directionalLight
           position={[10, 10, 5]}
-          intensity={1}
+          intensity={1.2}
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
@@ -58,10 +67,10 @@ export const Scene: React.FC<SceneProps> = ({
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
         />
-        <pointLight position={[-10, -10, -10]} intensity={0.3} />
+        <directionalLight position={[-10, 10, -5]} intensity={0.5} />
+        <pointLight position={[-10, -10, -10]} intensity={0.4} />
 
-        {/* Environment */}
-        <Environment preset="studio" background={false} />
+        <color attach="background" args={["#f0f0f0"]} />
 
         {/* Grid */}
         {showGrid && (
@@ -73,7 +82,6 @@ export const Scene: React.FC<SceneProps> = ({
             cellThickness={0.6}
             sectionSize={3.3}
             sectionThickness={1.5}
-            // sectionColor={[0.5, 0.5, 10]}
             sectionColor="#8080ff"
             fadeDistance={30}
           />

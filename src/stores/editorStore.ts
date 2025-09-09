@@ -12,9 +12,14 @@ interface EditorStore extends SceneState {
   removeHotspot: (id: string) => void;
   setSelectedHotspot: (id: string | null) => void;
   setIsAddingHotspot: (isAdding: boolean) => void;
+  toggleHotspotsVisibility: () => void;
+  setHotspotsVisible: (visible: boolean) => void;
 
   // Scene actions
   clearScene: () => void;
+
+  // UI state
+  hotspotsVisible: boolean;
 }
 
 export const useEditorStore = create<EditorStore>((set, get) => ({
@@ -23,14 +28,18 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   hotspots: [],
   selectedHotspot: null,
   isAddingHotspot: false,
+  hotspotsVisible: true,
 
   // Actions
   setModel: (model) => set({ model }),
 
   addHotspot: (hotspotData) => {
+    const state = get();
+    const hotspotNumber = state.hotspots.length + 1;
     const newHotspot: Hotspot = {
       id: `hotspot-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       ...hotspotData,
+      label: hotspotData.label || `Hotspot ${hotspotNumber}`,
     };
     set((state) => ({
       hotspots: [...state.hotspots, newHotspot],
@@ -56,11 +65,19 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
 
   setIsAddingHotspot: (isAdding) => set({ isAddingHotspot: isAdding }),
 
+  toggleHotspotsVisibility: () =>
+    set((state) => ({
+      hotspotsVisible: !state.hotspotsVisible,
+    })),
+
+  setHotspotsVisible: (visible) => set({ hotspotsVisible: visible }),
+
   clearScene: () =>
     set({
       model: null,
       hotspots: [],
       selectedHotspot: null,
       isAddingHotspot: false,
+      hotspotsVisible: true,
     }),
 }));

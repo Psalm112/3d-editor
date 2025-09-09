@@ -156,7 +156,7 @@ export const Toolbar: React.FC = () => {
                   gap: "6px",
                 }}
               >
-                {hotspots.map((hotspot, index) => (
+                {hotspots.map((hotspot) => (
                   <div
                     key={hotspot.id}
                     style={{

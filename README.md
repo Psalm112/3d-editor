@@ -1,4 +1,4 @@
-# SwiftXR Mini Editor
+# 3D Model Mini Editor
 
 A React-based 3D model editor that allows users to import GLB/GLTF files and create interactive hotspots for model annotation.
 
@@ -13,7 +13,7 @@ A React-based 3D model editor that allows users to import GLB/GLTF files and cre
 
 ## Live Demo
 
-[View Demo](https://swiftxr-mini-editor.vercel.app/)
+[View Demo](https://3d-mini-editor.vercel.app/)
 
 ## Quick Start
 

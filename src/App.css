@@ -1,0 +1,96 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.scene-container {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.upload-wrapper {
+  background: white;
+  padding: 60px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+}
+
+.upload-wrapper h1 {
+  color: #2c3e50;
+  margin-bottom: 16px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.upload-wrapper p {
+  color: #6c757d;
+  margin-bottom: 32px;
+  font-size: 18px;
+}
+
+.hotspot-label {
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.hotspot-label.selected {
+  transform: scale(1.05);
+}
+
+/* Loading animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .upload-wrapper {
+    padding: 40px 20px;
+    margin: 20px;
+  }
+  
+  .upload-wrapper h1 {
+    font-size: 24px;
+  }
+  
+  .upload-wrapper p {
+    font-size: 16px;
+  }
+}
